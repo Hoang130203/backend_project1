@@ -12,7 +12,7 @@ public partial class Sanbong
     public string? Linkimg { get; set; }
 
     public string? Address { get; set; }
-
+    [JsonIgnore]
     public int Cost { get; set; }
 
     public int Rate { get; set; }

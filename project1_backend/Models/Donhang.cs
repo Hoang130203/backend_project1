@@ -13,6 +13,8 @@ public partial class Donhang
 
     public string? Status { get; set; }
 
+    public DateTime? Time { get; set; }
+
     [JsonIgnore]
     public virtual User? PhonenumberNavigation { get; set; } = null!;
     [JsonIgnore]

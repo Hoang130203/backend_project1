@@ -116,7 +116,7 @@ public partial class ProjectBongDaContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("STATUS");
             entity.Property(e => e.Totalcost).HasColumnName("TOTALCOST");
-
+            entity.Property(e=>e.Time).HasColumnName("TIME");
             entity.HasOne(d => d.PhonenumberNavigation).WithMany(p => p.Donhangs)
                 .HasForeignKey(d => d.Phonenumber)
                 .HasConstraintName("DONHANGG_USER");

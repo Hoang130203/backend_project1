@@ -6,7 +6,6 @@ namespace project1_backend.Models.Custom
     public class InfoProduct
     {
         [Key]
-        [JsonIgnore]
         public int ProductId {  get; set; } 
         public string ProductName { get; set; } = null!;
         public int Price {  get; set; }

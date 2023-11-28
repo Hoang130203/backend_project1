@@ -67,7 +67,7 @@ namespace project1_backend.Controllers.TaiKhoan
                 PhoneNumber = id,
                 Name = user.Name,
                 PassWord=account.Password,
-                Address=user.Address,
+                Address=user.Address??"",
             };
 
             return accountUser;

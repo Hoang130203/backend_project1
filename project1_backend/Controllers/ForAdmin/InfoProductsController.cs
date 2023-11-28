@@ -32,6 +32,29 @@ namespace project1_backend.Controllers.ForAdmin
             return await _context.Products.ToListAsync();
         }
 
+        [HttpGet("Type")]
+        public async Task<ActionResult<IEnumerable<InfoProduct>>> SearchProducts(string Type)
+        {
+            var products = await _context.Products
+                .Where(p =>                 
+                    (string.IsNullOrEmpty(Type) || p.Type.ToUpper().Contains(Type.ToUpper())))
+                .Select(p => new InfoProduct
+                {
+                    ProductId=p.Productid,
+                    ProductName= p.Productname,
+                    Linkimg= p.Linkimg,
+                    Price= p.Price,
+                    Description=p.Detail,
+                    Color= p.Color,
+                    Type=p.Type,
+                    Quantity = _context.Khohangs.FirstOrDefault(ip => ip.Productid == p.Productid) != null ?
+                _context.Khohangs.FirstOrDefault(ip => ip.Productid == p.Productid).Quantity :0
+                })
+                .ToListAsync();
+
+            return products;
+        }
+
         // GET: api/InfoProducts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<InfoProduct>> GetInfoProduct(int id)
