@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Text.Json.Serialization;
 namespace project1_backend.Models;
 
 public partial class Sanbong
@@ -22,8 +22,8 @@ public partial class Sanbong
     public string? Decription { get; set; }
 
     public string Name { get; set; } = null!;
-
-    public virtual ICollection<SanbongDonhang> SanbongDonhangs { get; set; } = new List<SanbongDonhang>();
-
-    public virtual ICollection<SanbongUser> SanbongUsers { get; set; } = new List<SanbongUser>();
+    [JsonIgnore]
+    public virtual ICollection<SanbongDonhang>? SanbongDonhangs { get; set; } = new List<SanbongDonhang>();
+    [JsonIgnore]
+    public virtual ICollection<SanbongUser>? SanbongUsers { get; set; } = new List<SanbongUser>();
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Text.Json.Serialization;
 namespace project1_backend.Models;
 
 public partial class Thongbao
@@ -14,6 +14,6 @@ public partial class Thongbao
     public DateTime? Time { get; set; }
 
     public string? Type { get; set; }
-
-    public virtual Donhang Order { get; set; } = null!;
+    [JsonIgnore]
+    public virtual Donhang? Order { get; set; } = null!;
 }

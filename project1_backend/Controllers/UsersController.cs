@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using project1_backend.Models;
 
 namespace project1_backend.Controllers
@@ -79,7 +80,44 @@ namespace project1_backend.Controllers
 
             return NoContent();
         }
-
+        [HttpPost("login")]
+        public async Task<ActionResult> Login(string account, string password)
+        {
+            if (_context.Admins==null && _context.Users==null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                var admin = await _context.Admins.FirstOrDefaultAsync(p => p.Account == account && p.Password == password);
+                if (admin != null)
+                {
+                    return StatusCode(201, new
+                    {
+                        Success = true,
+                        Message = "Admin"
+                    });
+                }
+                var user = await _context.Accounts.FirstOrDefaultAsync(u => u.Phonenumber == account && u.Password == password);
+                if (user != null)
+                {
+                    return StatusCode(201, new
+                    {
+                        Success = true,
+                        Message = "User"
+                    });
+                }
+            }
+            catch
+            {
+                return NotFound();
+            }
+            return StatusCode(202, new
+            {
+                Success = false,
+                Message = "invalid account or password"
+            }) ;
+        }
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("register")]

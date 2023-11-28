@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Text.Json.Serialization;
 namespace project1_backend.Models;
 
 public partial class Admin

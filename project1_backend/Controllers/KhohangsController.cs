@@ -80,34 +80,6 @@ namespace project1_backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Khohangs
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Khohang>> PostKhohang(Khohang khohang)
-        {
-          if (_context.Khohangs == null)
-          {
-              return Problem("Entity set 'ProjectBongDaContext.Khohangs'  is null.");
-          }
-            _context.Khohangs.Add(khohang);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (KhohangExists(khohang.Productid))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetKhohang", new { id = khohang.Productid }, khohang);
-        }
 
         // DELETE: api/Khohangs/5
         [HttpDelete("{id}")]
@@ -124,6 +96,12 @@ namespace project1_backend.Controllers
             }
 
             _context.Khohangs.Remove(khohang);
+            var product= await _context.Products.FindAsync(id);
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+
+            }
             await _context.SaveChangesAsync();
 
             return NoContent();

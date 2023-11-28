@@ -370,4 +370,6 @@ public partial class ProjectBongDaContext : DbContext
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
     public DbSet<project1_backend.Models.Custom.AccountUser> AccountUser { get; set; } = default!;
+
+    public DbSet<project1_backend.Models.Custom.InfoProduct> InfoProduct { get; set; } = default!;
 }

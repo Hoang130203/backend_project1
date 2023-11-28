@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Text.Json.Serialization;
 namespace project1_backend.Models;
 
 public partial class SanbongUser
@@ -12,8 +12,8 @@ public partial class SanbongUser
     public int? Rate { get; set; }
 
     public string? Comment { get; set; }
-
-    public virtual Sanbong Field { get; set; } = null!;
-
-    public virtual User UserphonenumberNavigation { get; set; } = null!;
+    [JsonIgnore]
+    public virtual Sanbong? Field { get; set; } = null!;
+    [JsonIgnore]    
+    public virtual User? UserphonenumberNavigation { get; set; } = null!;
 }

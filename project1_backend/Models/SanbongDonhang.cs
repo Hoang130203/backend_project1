@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Text.Json.Serialization;
 namespace project1_backend.Models;
 
 public partial class SanbongDonhang
@@ -16,8 +16,8 @@ public partial class SanbongDonhang
     public int Cost { get; set; }
 
     public string? Note { get; set; }
-
-    public virtual Sanbong Field { get; set; } = null!;
-
-    public virtual Donhang Order { get; set; } = null!;
+    [JsonIgnore]
+    public virtual Sanbong? Field { get; set; } = null!;
+    [JsonIgnore]
+    public virtual Donhang? Order { get; set; } = null!;
 }

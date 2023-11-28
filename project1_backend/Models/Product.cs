@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Text.Json.Serialization;
 namespace project1_backend.Models;
 
 public partial class Product
@@ -20,12 +20,12 @@ public partial class Product
     public string? Linkimg { get; set; }
 
     public int? Rate { get; set; }
-
+    [JsonIgnore]
     public virtual Khohang? Khohang { get; set; }
-
-    public virtual ICollection<ProductUser> ProductUsers { get; set; } = new List<ProductUser>();
-
-    public virtual ICollection<SamphamDonhang> SamphamDonhangs { get; set; } = new List<SamphamDonhang>();
-
-    public virtual ICollection<SanphamGiohang> SanphamGiohangs { get; set; } = new List<SanphamGiohang>();
+    [JsonIgnore]
+    public virtual ICollection<ProductUser>? ProductUsers { get; set; } = new List<ProductUser>();
+    [JsonIgnore]
+    public virtual ICollection<SamphamDonhang>? SamphamDonhangs { get; set; } = new List<SamphamDonhang>();
+    [JsonIgnore]
+    public virtual ICollection<SanphamGiohang>? SanphamGiohangs { get; set; } = new List<SanphamGiohang>();
 }

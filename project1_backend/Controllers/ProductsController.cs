@@ -82,18 +82,7 @@ namespace project1_backend.Controllers
 
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
-        {
-          if (_context.Products == null)
-          {
-              return Problem("Entity set 'ProjectBongDaContext.Products'  is null.");
-          }
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Productid }, product);
-        }
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
@@ -110,6 +99,11 @@ namespace project1_backend.Controllers
             }
 
             _context.Products.Remove(product);
+            var khohang = await _context.Khohangs.FirstOrDefaultAsync(k => k.Productid == id);
+            if (khohang != null)
+            {
+                _context.Khohangs.Remove(khohang);
+            }
             await _context.SaveChangesAsync();
 
             return NoContent();

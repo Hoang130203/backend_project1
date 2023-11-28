@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Text.Json.Serialization;
 namespace project1_backend.Models;
 
 public partial class Donhang
@@ -13,11 +13,12 @@ public partial class Donhang
 
     public string? Status { get; set; }
 
-    public virtual User PhonenumberNavigation { get; set; } = null!;
-
-    public virtual ICollection<SamphamDonhang> SamphamDonhangs { get; set; } = new List<SamphamDonhang>();
-
-    public virtual ICollection<SanbongDonhang> SanbongDonhangs { get; set; } = new List<SanbongDonhang>();
-
-    public virtual ICollection<Thongbao> Thongbaos { get; set; } = new List<Thongbao>();
+    [JsonIgnore]
+    public virtual User? PhonenumberNavigation { get; set; } = null!;
+    [JsonIgnore]
+    public virtual ICollection<SamphamDonhang>? SamphamDonhangs { get; set; } = new List<SamphamDonhang>();
+    [JsonIgnore]
+    public virtual ICollection<SanbongDonhang>? SanbongDonhangs { get; set; } = new List<SanbongDonhang>();
+    [JsonIgnore]
+    public virtual ICollection<Thongbao>? Thongbaos { get; set; } = new List<Thongbao>();
 }
