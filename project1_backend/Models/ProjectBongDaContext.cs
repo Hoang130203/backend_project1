@@ -46,7 +46,7 @@ public partial class ProjectBongDaContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
-        => optionsBuilder.UseSqlServer("server=hoang;Data Source=.; database=ProjectBongDa; Integrated security=true;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("server=hoang;Data Source=.; database=ProjectBongDa2; Integrated security=true;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

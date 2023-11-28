@@ -151,6 +151,7 @@ namespace project1_backend.Controllers.ForAdmin
             product.Color = infoProduct.Color??"";
             product.Detail = infoProduct.Description;
             product.Type = infoProduct.Type??"";
+            product.Price= infoProduct.Price;
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
             var maxProductId = await _context.Products.MaxAsync(p => (int?)p.Productid) ?? 0;

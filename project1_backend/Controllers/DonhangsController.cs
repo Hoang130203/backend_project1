@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using project1_backend.Models;
 using project1_backend.Models.Custom;
+using project1_backend.Service;
 
 namespace project1_backend.Controllers
 {
@@ -34,22 +35,57 @@ namespace project1_backend.Controllers
 
         // GET: api/Donhangs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Donhang>> GetDonhang(int id)
+        public async Task<ActionResult<object>> GetDonhang(int id)
         {
           if (_context.Donhangs == null)
           {
               return NotFound();
           }
             var donhang = await _context.Donhangs.FindAsync(id);
-
+            var sanpham= await _context.SamphamDonhangs.Where(s=>s.Orderid==id).ToListAsync();
+            var donhangg=new { donhang, sanpham };
             if (donhang == null)
             {
                 return NotFound();
             }
 
-            return donhang;
+            return donhangg;
         }
+        [HttpGet("allofUser")]
+        public async Task<ActionResult<object>> GetAllDonhang(string id)
+        {
+            if (_context.Donhangs == null)
+            {
+                return NotFound();
+            }
+            
+            var user=await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var donhangs= await _context.Donhangs.Where(d=>d.Phonenumber==id).ToListAsync();
+            var list=new List<object>();
+            foreach(var spdh in donhangs)
+            {
+                var sanpham = await _context.SamphamDonhangs.Where(s => s.Orderid == spdh.Orderid).ToListAsync();
+                var chitiet= new List<object>();
+                foreach (var sp in sanpham)
+                {
+                    chitiet.Add(await _context.Products.FindAsync(sp.Productid));
 
+                }
+                
+                var donhangWithSanpham = new { Donhang = spdh, Sanpham = sanpham,Chitiet=chitiet };
+                list.Add(donhangWithSanpham);
+            }
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return list;
+        }
         // PUT: api/Donhangs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -125,6 +161,14 @@ namespace project1_backend.Controllers
                 donhang.Totalcost=total;
                 donhang.Status = "đang chờ xác nhận";
                 await _context.SaveChangesAsync();
+                var thongbao = new Thongbao();
+                thongbao.Orderid = newOrderId;
+                thongbao.Message = user.Name + " vừa đặt đơn hàng " + newOrderId;
+                thongbao.Time= DateTime.Now;
+                thongbao.Type = "1";
+                var createthongbao = new CreateThongBao(_context);
+                createthongbao.create(thongbao);
+
             }
 
 
