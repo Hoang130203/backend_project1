@@ -82,61 +82,7 @@ namespace project1_backend.Controllers
 
         // POST: api/Accounts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Account>> PostAccount(Account account)
-        {
-          if (_context.Accounts == null)
-          {
-              return Problem("Entity set 'ProjectBongDaContext.Accounts'  is null.");
-          }
-          var accountt = await _context.Accounts.FirstOrDefaultAsync(p=>p.Phonenumber==account.Phonenumber);
-            if (accountt!=null)
-            {
-                return Problem("phone number existed");
-            }
-            _context.Accounts.Add(account);
-            var user = new User();
-            user.Phonenumber = account.Phonenumber;
-            user.Name = "Người dùng";
-            _context.Users.Add(user);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (AccountExists(account.Phonenumber))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return CreatedAtAction("GetAccount", new { id = account.Phonenumber }, account);
-        }
-
-        // DELETE: api/Accounts/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAccount(string id)
-        {
-            if (_context.Accounts == null)
-            {
-                return NotFound();
-            }
-            var account = await _context.Accounts.FindAsync(id);
-            if (account == null)
-            {
-                return NotFound();
-            }
-
-            _context.Accounts.Remove(account);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
 
         private bool AccountExists(string id)
         {

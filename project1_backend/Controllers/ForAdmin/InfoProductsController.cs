@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,10 @@ namespace project1_backend.Controllers.ForAdmin
         [HttpGet("Type")]
         public async Task<ActionResult<IEnumerable<InfoProduct>>> SearchProducts(string Type)
         {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
             var products = await _context.Products
                 .Where(p =>                 
                     (string.IsNullOrEmpty(Type) || p.Type.ToUpper().Contains(Type.ToUpper())))

@@ -28,9 +28,147 @@ namespace project1_backend.Controllers
           {
               return NotFound();
           }
-            return await _context.Products.ToListAsync();
+            return await _context.Products.OrderBy(x => Guid.NewGuid()).ToListAsync();
+        }
+        [HttpGet("AtoZ")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductByName()
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.OrderBy(p=>p.Productname).ToListAsync();
+        }
+        [HttpGet("ZtoA")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductByNameDesc()
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.OrderByDescending(p => p.Productname).ToListAsync();
+        }
+        [HttpGet("Newer")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductByNew()
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.OrderByDescending(p => p.Productid).ToListAsync();
+        }
+        [HttpGet("Older")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductByOld()
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.OrderBy(p => p.Productid).ToListAsync();
+        }
+        [HttpGet("Cheaper")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductByCost()
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.OrderBy(p => p.Price).ToListAsync();
+        }
+        [HttpGet("Expensive")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductByExpensive()
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.OrderByDescending(p => p.Price).ToListAsync();
+        }
+        [HttpGet("top3")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetTopNew()
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.OrderByDescending(p => p.Productid).Take(3).ToListAsync();
         }
 
+        //Get by type
+        [HttpGet("type/{type}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsType(string type)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where(p=>p.Type.Trim().ToLower()==type.Trim().ToLower()).OrderBy(x => Guid.NewGuid()).ToListAsync();
+        }
+        
+        [HttpGet("{type}/AtoZ")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductofTypeByName(string type)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where(p => p.Type.Trim().ToLower() == type.Trim().ToLower()).OrderBy(p => p.Productname).ToListAsync();
+        }
+        [HttpGet("{type}/ZtoA")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductofTypeByNameDesc(string type)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where(p => p.Type.Trim().ToLower() == type.Trim().ToLower()).OrderBy(p => p.Productname).OrderByDescending(p => p.Productname).ToListAsync();
+        }
+              
+        [HttpGet("{type}/Newer")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductofTypeByNew(string type)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where(p => p.Type.Trim().ToLower() == type.Trim().ToLower()).OrderBy(p => p.Productname).OrderByDescending(p => p.Productid).ToListAsync();
+        } 
+        [HttpGet("{type}/Older")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductofTypeByOld(string type)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where(p => p.Type.Trim().ToLower() == type.Trim().ToLower()).OrderBy(p => p.Productname).OrderBy(p => p.Productid).ToListAsync();
+        }
+        [HttpGet("{type}/Cheaper")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductofTypeByCost(string type)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where(p => p.Type.Trim().ToLower() == type.Trim().ToLower()).OrderBy(p => p.Productname).OrderBy(p => p.Price).ToListAsync();
+        }
+        [HttpGet("{type}/Expensive")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductofTypeByExpensive(string type)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where(p => p.Type.Trim().ToLower() == type.Trim().ToLower()).OrderBy(p => p.Productname).OrderByDescending(p => p.Price).ToListAsync();
+        }
+        [HttpGet("{type}/top3")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetTopOfTypeNew(string type)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where(p => p.Type.Trim().ToLower() == type.Trim().ToLower()).OrderBy(p => p.Productname).OrderByDescending(p => p.Productid).Take(3).ToListAsync();
+        }
         // GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)

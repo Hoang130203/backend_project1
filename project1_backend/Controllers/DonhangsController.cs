@@ -72,8 +72,11 @@ namespace project1_backend.Controllers
                 var chitiet= new List<object>();
                 foreach (var sp in sanpham)
                 {
-                    chitiet.Add(await _context.Products.FindAsync(sp.Productid));
-
+                    var product = await _context.Products.FindAsync(sp.Productid);
+                    if (product != null)
+                    {
+                        chitiet.Add(product);
+                    }
                 }
                 
                 var donhangWithSanpham = new { Donhang = spdh, Sanpham = sanpham,Chitiet=chitiet };
@@ -119,8 +122,8 @@ namespace project1_backend.Controllers
 
         // POST: api/Donhangs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Donhang>> PostDonhang(List<InfoProduct> list,string phone,bool isSanbong)
+        [HttpPost("OrderProducts")]
+        public async Task<ActionResult<Donhang>> PostDonhangProduct(List<InfoProduct> list,string phone)
         {
           if (_context.Donhangs == null)
           {
@@ -139,39 +142,30 @@ namespace project1_backend.Controllers
             await _context.SaveChangesAsync();
             int newOrderId = donhang.Orderid;
             int total = 0;
-            if (isSanbong)
+
+            foreach (var product in list)
             {
-
-            }
-            else {
-                foreach (var product in list)
+                var orderProduct = new SamphamDonhang()
                 {
-                    var orderProduct = new SamphamDonhang()
-                    {
-                       Orderid=newOrderId,
-                       Productid=product.ProductId,
-                       Quantity= product.Quantity,
-                       Cost=product.Price,
-                    };
-                    _context.SamphamDonhangs.Add(orderProduct);
-                    total += product.Quantity * product.Price;
-                }
-                await _context.SaveChangesAsync();
-
-                donhang.Totalcost=total;
-                donhang.Status = "đang chờ xác nhận";
-                await _context.SaveChangesAsync();
-                var thongbao = new Thongbao();
-                thongbao.Orderid = newOrderId;
-                thongbao.Message = user.Name + " vừa đặt đơn hàng " + newOrderId;
-                thongbao.Time= DateTime.Now;
-                thongbao.Type = "1";
-                var createthongbao = new CreateThongBao(_context);
-                createthongbao.create(thongbao);
-
+                    Orderid=newOrderId,
+                    Productid=product.ProductId,
+                    Quantity= product.Quantity,
+                    Cost=product.Price,
+                };
+                _context.SamphamDonhangs.Add(orderProduct);
+                total += product.Quantity * product.Price;
             }
-
-
+            await _context.SaveChangesAsync();
+            donhang.Totalcost=total;
+            donhang.Status = "đang chờ xác nhận";
+            await _context.SaveChangesAsync();
+            var thongbao = new Thongbao();
+            thongbao.Orderid = newOrderId;
+            thongbao.Message = user.Name + " vừa đặt đơn hàng " + newOrderId;
+            thongbao.Time= DateTime.Now;
+            thongbao.Type = "1";
+            var createthongbao = new CreateThongBao(_context);
+            createthongbao.create(thongbao);
             return Ok(new { message="you ordered" });
         }
 

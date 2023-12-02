@@ -84,9 +84,13 @@ namespace project1_backend.Controllers.TaiKhoan
             }
             var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Phonenumber == id);
             var user = await _context.Users.FirstOrDefaultAsync(b => b.Phonenumber == id);
-            account.Password = accountUser.PassWord;
-            user.Address= accountUser.Address;
-            user.Name = accountUser.Name;
+            if (account != null && user!=null)
+            {
+                 account.Password = accountUser.PassWord;
+                user.Address = accountUser.Address;
+                user.Name = accountUser.Name;
+            }
+            
 
             try
             {
@@ -122,8 +126,53 @@ namespace project1_backend.Controllers.TaiKhoan
             await _context.SaveChangesAsync();
             return StatusCode(201, new
             {
+ 
                 Success = true,
                 Message = "access"
+            });
+        }
+        [HttpPost("login")]
+        public async Task<ActionResult> Login(string account, string password)
+        {
+            if (_context.Admins == null && _context.Users == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+               if (_context.Admins != null)
+                {
+                var admin = await _context.Admins.FirstOrDefaultAsync(p => p.Account == account && p.Password == password);
+                if (admin != null)
+                {
+                    return StatusCode(201, new
+                    {
+                        
+                        Success = true,
+                        Message = "Admin"
+                    });
+                }
+                }
+                var user = await _context.Accounts.FirstOrDefaultAsync(u => u.Phonenumber == account && u.Password == password);
+                var userr = await _context.Users.FirstOrDefaultAsync(u => u.Phonenumber == account);
+                if (user != null)
+                {
+                    return StatusCode(201, new
+                    {
+                        name = userr?.Name.Split().Last().Trim(),
+                        Success = true,
+                        Message = "User"
+                    });
+                }
+            }
+            catch
+            {
+                return NotFound();
+            }
+            return StatusCode(202, new
+            {
+                Success = false,
+                Message = "invalid account or password"
             });
         }
         // POST: api/AccountUsers
@@ -179,22 +228,21 @@ namespace project1_backend.Controllers.TaiKhoan
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAccountUser(string id)
         {
-            if (_context.AccountUser == null)
+           if (_context.Accounts == null || _context.Users == null)
+            {
+                return BadRequest();
+            }
+            var account= await _context.Accounts.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
+            if (account == null || user==null)
             {
                 return NotFound();
             }
-            var accountUser = await _context.AccountUser.FindAsync(id);
-            if (accountUser == null)
-            {
-                return NotFound();
-            }
-
-            _context.AccountUser.Remove(accountUser);
+            _context.Users.Remove(user);
+            _context.Accounts.Remove(account);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
-
         private bool AccountUserExists(string id)
         {
             return (_context.AccountUser?.Any(e => e.PhoneNumber == id)).GetValueOrDefault();

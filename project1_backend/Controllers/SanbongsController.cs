@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,12 +50,34 @@ namespace project1_backend.Controllers
 
             return sanbong;
         }
+        [HttpGet("SearchBy")]
+        public async Task<ActionResult<IEnumerable<Sanbong>>> SearchBy(string rate,string type)
+        {
+            if (_context.Sanbongs == null)
+            {
+                return NotFound();
 
+            }
+            var rat = rate.Where(r=> r!=' ' && r!=',');
+            var typ= type.Where(t=>t!=' '&& t!= ',');
+            int[] ratInt = rat.Select(c => int.Parse(c.ToString())).ToArray();
+            string[] typInt = typ.Select(c => int.Parse(c.ToString()).ToString()).ToArray();
+            MatchCollection matches = Regex.Matches(type, @"\d+");
+            var sanbong = await _context.Sanbongs
+             .Where(s => ratInt.Contains(s.Rate)) // Chọn các phần tử có Rate thuộc danh sách rat
+             .ToListAsync();
+            var sanbong2 = await _context.Sanbongs
+                  .Where(s => typInt.Contains(s.Type) )
+                .ToListAsync();
+            var intersection = sanbong.Intersect(sanbong2).ToList();
+            return intersection;
+        }
         // PUT: api/Sanbongs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("update")]
         public async Task<IActionResult> PutSanbong(string id, Sanbong sanbong)
         {
+
             if (id != sanbong.Fieldid)
             {
                 return BadRequest();
