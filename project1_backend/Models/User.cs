@@ -11,6 +11,7 @@ public partial class User
 
     public DateTime? Birthdate { get; set; }
 
+    public bool Gender {  get; set; }
     public string? Address { get; set; }
 
     public string? Avt { get; set; }

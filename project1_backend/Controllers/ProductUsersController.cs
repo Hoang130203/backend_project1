@@ -32,23 +32,50 @@ namespace project1_backend.Controllers
         }
 
         // GET: api/ProductUsers/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ProductUser>> GetProductUser(int id)
+        [HttpGet("FindComment")]
+        public async Task<ActionResult<ProductUser>> GetProductUser(int productid,string phone,DateTime time)
         {
           if (_context.ProductUsers == null)
           {
-              return NotFound();
+              return NoContent();
           }
-            var productUser = await _context.ProductUsers.FindAsync(id);
+            var productUser = await _context.ProductUsers.FirstOrDefaultAsync(p=>p.Productid==productid 
+            && p.Userphonenumber==phone &&p.Time.Date==time.Date && p.Time.Hour==time.Hour&&p.Time.Minute==time.Minute &&p.Time.Second==time.Second);
 
             if (productUser == null)
             {
-                return NotFound();
+                return NoContent();
             }
 
             return productUser;
         }
+        //Get all comment
+        [HttpGet("GetAllCmtOfProduct")]
+        public async Task<ActionResult<IEnumerable<object>>> GetAllComment(int productid)
+        {
+            if (_context.ProductUsers == null)
+            {
+                return NoContent();
+            }
+            var productUsers= await _context.ProductUsers.Where(p=>p.Productid==productid).OrderByDescending(p=>p.Time).ToListAsync();
+            var listcomment=new List<object>();
+            foreach(var p in productUsers)
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u=>u.Phonenumber==p.Userphonenumber);
+                var obj = new
+                {
+                    danhgia = p,
+                    user = user,
+                };
+                listcomment.Add(obj);
+            }
+            if (listcomment == null)
+            {
+                return NoContent();
+            }
 
+            return listcomment;
+        }
         // PUT: api/ProductUsers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -67,7 +94,7 @@ namespace project1_backend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductUserExists(id))
+                if (!ProductUserExists(id,productUser.Userphonenumber,productUser.Time))
                 {
                     return NotFound();
                 }
@@ -93,10 +120,39 @@ namespace project1_backend.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                var product_comment = await _context.ProductUsers.Where(pc => pc.Productid == productUser.Productid).ToListAsync();
+                int rate = 0;
+                foreach(var cmt in product_comment)
+                {                   
+                    rate += cmt.Rate??0;
+                }
+                rate = rate / product_comment.Count();
+                var product= await _context.Products.FindAsync(productUser.Productid);
+                if(product != null)
+                {
+                    product.Rate = rate;
+                }
+                await _context.SaveChangesAsync();
+                var thongbao = new Thongbao();
+                var user = await _context.Users.FindAsync(productUser.Userphonenumber);
+                var productd =await _context.Products.FirstOrDefaultAsync(o=>o.Productid == productUser.Productid);
+
+                thongbao.Orderid = productd.Productid;
+                thongbao.Message = user.Name + " vừa đánh giá sản phẩm " + productd.Productname+ " \""+productUser.Comment+" \"";
+                thongbao.Time = DateTime.Now;
+                thongbao.Type = "3";
+                if (_context.Thongbaos != null)
+                {
+                    _context.Thongbaos.Add(thongbao);
+
+                    await _context.SaveChangesAsync();
+
+                }
             }
+            
             catch (DbUpdateException)
             {
-                if (ProductUserExists(productUser.Productid))
+                if (ProductUserExists(productUser.Productid,productUser.Userphonenumber,productUser.Time))
                 {
                     return Conflict();
                 }
@@ -129,9 +185,9 @@ namespace project1_backend.Controllers
             return NoContent();
         }
 
-        private bool ProductUserExists(int id)
+        private bool ProductUserExists(int id,string phone, DateTime time)
         {
-            return (_context.ProductUsers?.Any(e => e.Productid == id)).GetValueOrDefault();
+            return (_context.ProductUsers?.Any(e => e.Productid == id && e.Userphonenumber==phone && e.Time.Minute==time.Minute)).GetValueOrDefault();
         }
     }
 }

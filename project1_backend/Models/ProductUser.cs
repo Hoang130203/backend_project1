@@ -13,7 +13,7 @@ public partial class ProductUser
 
     public string? Comment { get; set; }
 
-    public DateTime? Time { get; set; }
+    public DateTime Time { get; set; }
     [JsonIgnore]
     public virtual Product? Product { get; set; } = null!;
     [JsonIgnore]

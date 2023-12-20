@@ -269,6 +269,10 @@ namespace project1_backend.Migrations
                         .HasColumnName("USERPHONENUMBER")
                         .IsFixedLength();
 
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime")
+                        .HasColumnName("TIME");
+
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("COMMENT");
@@ -277,11 +281,7 @@ namespace project1_backend.Migrations
                         .HasColumnType("int")
                         .HasColumnName("RATE");
 
-                    b.Property<DateTime?>("Time")
-                        .HasColumnType("datetime")
-                        .HasColumnName("TIME");
-
-                    b.HasKey("Productid", "Userphonenumber")
+                    b.HasKey("Productid", "Userphonenumber", "Time")
                         .HasName("PK__PRODUCT___64227F3B363158BE");
 
                     b.HasIndex("Userphonenumber");
@@ -299,6 +299,10 @@ namespace project1_backend.Migrations
                         .HasColumnType("int")
                         .HasColumnName("PRODUCTID");
 
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("COLOR");
+
                     b.Property<int>("Cost")
                         .HasColumnType("int")
                         .HasColumnName("COST");
@@ -307,7 +311,7 @@ namespace project1_backend.Migrations
                         .HasColumnType("int")
                         .HasColumnName("QUANTITY");
 
-                    b.HasKey("Orderid", "Productid")
+                    b.HasKey("Orderid", "Productid", "Color")
                         .HasName("SANPHAM_DONHANG_KEY");
 
                     b.HasIndex("Productid");
@@ -447,15 +451,19 @@ namespace project1_backend.Migrations
                         .HasColumnType("int")
                         .HasColumnName("PRODUCTID");
 
-                    b.Property<int?>("Price")
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("COLOR");
+
+                    b.Property<int>("Price")
                         .HasColumnType("int")
                         .HasColumnName("PRICE");
 
-                    b.Property<int?>("Quantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int")
                         .HasColumnName("QUANTITY");
 
-                    b.HasKey("Userphonenumber", "Productid")
+                    b.HasKey("Userphonenumber", "Productid", "Color")
                         .HasName("PK__SANPHAM___38EED93EB79E11FF");
 
                     b.HasIndex("Productid");
@@ -519,6 +527,10 @@ namespace project1_backend.Migrations
                     b.Property<DateTime?>("Birthdate")
                         .HasColumnType("date")
                         .HasColumnName("BIRTHDATE");
+
+                    b.Property<bool>("Gender")
+                        .HasColumnType("bit")
+                        .HasColumnName("GENDER");
 
                     b.Property<string>("Name")
                         .IsRequired()

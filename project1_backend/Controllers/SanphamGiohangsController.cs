@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using project1_backend.Models;
+using project1_backend.Models.Custom;
 
 namespace project1_backend.Controllers
 {
@@ -32,14 +34,14 @@ namespace project1_backend.Controllers
         }
 
         // GET: api/SanphamGiohangs/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SanphamGiohang>> GetSanphamGiohang(string id)
+        [HttpGet("ByID")]
+        public async Task<ActionResult<SanphamGiohang>> GetSanphamGiohang(string phone,int productid)
         {
           if (_context.SanphamGiohangs == null)
           {
               return NotFound();
           }
-            var sanphamGiohang = await _context.SanphamGiohangs.FindAsync(id);
+            var sanphamGiohang = await _context.SanphamGiohangs.FindAsync(phone,productid);
 
             if (sanphamGiohang == null)
             {
@@ -48,16 +50,41 @@ namespace project1_backend.Controllers
 
             return sanphamGiohang;
         }
+        [HttpGet("ByPhone")]
+        public async Task<ActionResult<IEnumerable<object>>> GetAllByPhone(string phone)
+        {
+            if (_context.SanphamGiohangs == null)
+            {
+                return NotFound();
+            }
+            var sanphamGiohang = await _context.SanphamGiohangs.Where(s=>s.Userphonenumber == phone).ToListAsync();
+            var infogiohang =new List<object>();
+            foreach(var i in sanphamGiohang)
+            {
+                var product = await _context.Products.FindAsync(i.Productid);
+                var info = new InfoProduct();
+                info.ProductId = i.Productid;
+                info.Linkimg = product?.Linkimg;
+                info.ProductName=product?.Productname;
+                info.Quantity = i.Quantity;
+                info.Price = i.Price;
+                info.Color = i.Color;
+                infogiohang.Add(info);
+            }
+            if (sanphamGiohang == null)
+            {
+                return NotFound();
+            }
+
+            return infogiohang;
+        }
 
         // PUT: api/SanphamGiohangs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSanphamGiohang(string id, SanphamGiohang sanphamGiohang)
+        [HttpPut("updateCart")]
+        public async Task<IActionResult> PutSanphamGiohang(SanphamGiohang sanphamGiohang)
         {
-            if (id != sanphamGiohang.Userphonenumber)
-            {
-                return BadRequest();
-            }
+            
 
             _context.Entry(sanphamGiohang).State = EntityState.Modified;
 
@@ -67,7 +94,7 @@ namespace project1_backend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SanphamGiohangExists(id))
+                if (!SanphamGiohangExists(sanphamGiohang.Userphonenumber,sanphamGiohang.Productid, sanphamGiohang.Color))
                 {
                     return NotFound();
                 }
@@ -88,36 +115,52 @@ namespace project1_backend.Controllers
           if (_context.SanphamGiohangs == null)
           {
               return Problem("Entity set 'ProjectBongDaContext.SanphamGiohangs'  is null.");
-          }
-            _context.SanphamGiohangs.Add(sanphamGiohang);
+            }
+            var user = await _context.Users.FindAsync(sanphamGiohang.Userphonenumber);
+            var product = await _context.Products.FindAsync(sanphamGiohang.Productid);
+            if (user == null || product == null)
+            {
+                return Ok(new { success = false });
+            }
+            var spgh = await _context.SanphamGiohangs.FindAsync(sanphamGiohang.Userphonenumber, sanphamGiohang.Productid,sanphamGiohang.Color);
+            if (spgh == null )
+            {
+                _context.SanphamGiohangs.Add(sanphamGiohang);
+            }
+            else
+            {
+                spgh.Quantity += sanphamGiohang.Quantity;
+                spgh.Price = sanphamGiohang.Price;
+            }
             try
             {
                 await _context.SaveChangesAsync();
+                return Ok(new {success=true});
             }
             catch (DbUpdateException)
             {
-                if (SanphamGiohangExists(sanphamGiohang.Userphonenumber))
+                if (SanphamGiohangExists(sanphamGiohang.Userphonenumber,sanphamGiohang.Productid,sanphamGiohang.Color))
                 {
-                    return Conflict();
+                    return Ok(new { success = false });
                 }
                 else
                 {
                     throw;
                 }
             }
+           
 
-            return CreatedAtAction("GetSanphamGiohang", new { id = sanphamGiohang.Userphonenumber }, sanphamGiohang);
         }
 
         // DELETE: api/SanphamGiohangs/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSanphamGiohang(string id)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteSanphamGiohang(string phone,int productid,string color)
         {
             if (_context.SanphamGiohangs == null)
             {
                 return NotFound();
             }
-            var sanphamGiohang = await _context.SanphamGiohangs.FindAsync(id);
+            var sanphamGiohang = await _context.SanphamGiohangs.FindAsync(phone,productid, color.Replace(".", ""));
             if (sanphamGiohang == null)
             {
                 return NotFound();
@@ -128,10 +171,29 @@ namespace project1_backend.Controllers
 
             return NoContent();
         }
-
-        private bool SanphamGiohangExists(string id)
+        [HttpDelete("all")]
+        public async Task<IActionResult> DeleteAllGioHang(string phone)
         {
-            return (_context.SanphamGiohangs?.Any(e => e.Userphonenumber == id)).GetValueOrDefault();
+            if (_context.SanphamGiohangs == null)
+            {
+                return NotFound();
+            }
+            var sanphamgiohang=await _context.SanphamGiohangs.Where(s=>s.Userphonenumber==phone).ToListAsync();
+            if (sanphamgiohang == null)
+            {
+                return NotFound();
+            }
+            foreach (var item in sanphamgiohang)
+            {
+                _context.SanphamGiohangs.Remove(item);
+
+            }
+            await _context.SaveChangesAsync();
+            return Ok(new { message = "deleted" });
+        }
+        private bool SanphamGiohangExists(string id1,int id2,string id3)
+        {
+            return (_context.SanphamGiohangs?.Any(e => e.Userphonenumber == id1 &&e.Productid==id2 && e.Color==id3)).GetValueOrDefault();
         }
     }
 }

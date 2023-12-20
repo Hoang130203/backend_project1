@@ -9,6 +9,7 @@ public partial class SamphamDonhang
 
     public int Productid { get; set; }
 
+    public string Color { get; set; } = string.Empty;
     public int Quantity { get; set; }
 
     public int Cost { get; set; }

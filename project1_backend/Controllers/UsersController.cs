@@ -34,20 +34,29 @@ namespace project1_backend.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(string id)
+        public async Task<ActionResult<object>> GetUser(string id)
         {
           if (_context.Users == null)
           {
               return NotFound();
           }
             var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
+            var account= await _context.Accounts.FindAsync(id);
+            if (user == null ||account==null)
             {
                 return NotFound();
             }
-
-            return user;
+            var obj = new
+            {
+                phonenumber = user.Phonenumber,
+                name = user.Name,
+                birthdate = user.Birthdate,
+                gender = user.Gender,
+                address = user.Address,
+                avt = user.Avt,
+                password = account.Password
+            };
+            return obj;
         }
 
         // PUT: api/Users/5
@@ -80,7 +89,21 @@ namespace project1_backend.Controllers
 
             return NoContent();
         }
-
+        [HttpPut("avatar")]
+        public async Task<IActionResult> PutAvatar(string url,string phone)
+        {
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
+            var user= await _context.Users.FirstOrDefaultAsync(u=>u.Phonenumber==phone);
+            if (user != null)
+            {
+                user.Avt = url;
+            }
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
         private bool UserExists(string id)
         {
             return (_context.Users?.Any(e => e.Phonenumber == id)).GetValueOrDefault();

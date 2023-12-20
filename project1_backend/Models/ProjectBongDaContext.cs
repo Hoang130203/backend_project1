@@ -46,7 +46,7 @@ public partial class ProjectBongDaContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
-        => optionsBuilder.UseSqlServer("server=hoang;Data Source=.; database=ProjectBongDa2; Integrated security=true;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("server=hoang;Data Source=.; database=ProjectBongDa1; Integrated security=true;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -166,7 +166,7 @@ public partial class ProjectBongDaContext : DbContext
 
         modelBuilder.Entity<ProductUser>(entity =>
         {
-            entity.HasKey(e => new { e.Productid, e.Userphonenumber }).HasName("PK__PRODUCT___64227F3B363158BE");
+            entity.HasKey(e => new { e.Productid, e.Userphonenumber,e.Time}).HasName("PK__PRODUCT___64227F3B363158BE");
 
             entity.ToTable("PRODUCT_USER");
 
@@ -180,8 +180,8 @@ public partial class ProjectBongDaContext : DbContext
             entity.Property(e => e.Rate).HasColumnName("RATE");
             entity.Property(e => e.Time)
                 .HasColumnType("datetime")
-                .HasColumnName("TIME");
-
+                .HasColumnName("TIME").IsRequired();
+            
             entity.HasOne(d => d.Product).WithMany(p => p.ProductUsers)
                 .HasForeignKey(d => d.Productid)
                 .HasConstraintName("FK_3");
@@ -193,12 +193,13 @@ public partial class ProjectBongDaContext : DbContext
 
         modelBuilder.Entity<SamphamDonhang>(entity =>
         {
-            entity.HasKey(e => new { e.Orderid, e.Productid }).HasName("SANPHAM_DONHANG_KEY");
+            entity.HasKey(e => new { e.Orderid, e.Productid,e.Color }).HasName("SANPHAM_DONHANG_KEY");
 
             entity.ToTable("SAMPHAM_DONHANG");
 
             entity.Property(e => e.Orderid).HasColumnName("ORDERID");
             entity.Property(e => e.Productid).HasColumnName("PRODUCTID");
+            entity.Property(e=>e.Color).HasColumnName("COLOR");
             entity.Property(e => e.Cost).HasColumnName("COST");
             entity.Property(e => e.Quantity).HasColumnName("QUANTITY");
 
@@ -268,7 +269,7 @@ public partial class ProjectBongDaContext : DbContext
 
         modelBuilder.Entity<SanbongUser>(entity =>
         {
-            entity.HasKey(e => new { e.Fieldid, e.Userphonenumber }).HasName("PK_SANBONG_USER");
+            entity.HasKey(e => new { e.Fieldid, e.Userphonenumber,e.Time }).HasName("PK_SANBONG_USER");
 
             entity.ToTable("sanbong_user");
 
@@ -282,6 +283,8 @@ public partial class ProjectBongDaContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("USERPHONENUMBER");
+            entity.Property(e => e.Time)
+                .HasColumnName("Time");
             entity.Property(e => e.Comment).HasColumnName("COMMENT");
             entity.Property(e => e.Rate).HasColumnName("RATE");
 
@@ -296,7 +299,7 @@ public partial class ProjectBongDaContext : DbContext
 
         modelBuilder.Entity<SanphamGiohang>(entity =>
         {
-            entity.HasKey(e => new { e.Userphonenumber, e.Productid }).HasName("PK__SANPHAM___38EED93EB79E11FF");
+            entity.HasKey(e => new { e.Userphonenumber, e.Productid,e.Color }).HasName("PK__SANPHAM___38EED93EB79E11FF");
 
             entity.ToTable("SANPHAM_GIOHANG");
 
@@ -308,7 +311,7 @@ public partial class ProjectBongDaContext : DbContext
             entity.Property(e => e.Productid).HasColumnName("PRODUCTID");
             entity.Property(e => e.Price).HasColumnName("PRICE");
             entity.Property(e => e.Quantity).HasColumnName("QUANTITY");
-
+            entity.Property(e => e.Color).HasColumnName("COLOR");
             entity.HasOne(d => d.Product).WithMany(p => p.SanphamGiohangs)
                 .HasForeignKey(d => d.Productid)
                 .HasConstraintName("FK__SANPHAM_G__PRODU__10566F31");
@@ -353,6 +356,8 @@ public partial class ProjectBongDaContext : DbContext
             entity.Property(e => e.Address)
                 .HasMaxLength(200)
                 .HasColumnName("ADDRESS");
+            entity.Property(e => e.Gender)
+            .HasColumnName("GENDER");
             entity.Property(e => e.Avt)
                 .IsUnicode(false)
                 .HasColumnName("AVT");

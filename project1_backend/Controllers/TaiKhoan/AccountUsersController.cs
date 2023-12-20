@@ -54,7 +54,7 @@ namespace project1_backend.Controllers.TaiKhoan
 
         // GET: api/AccountUsers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AccountUser>> GetAccountUser(string id)
+        public async Task<ActionResult<object>> GetAccountUser(string id)
         {
             var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Phonenumber == id);
             var user=await _context.Users.FirstOrDefaultAsync(b=>b.Phonenumber == id);
@@ -62,12 +62,13 @@ namespace project1_backend.Controllers.TaiKhoan
             {
                 return Problem("tài khoản không tồn tại");
             }
-            var accountUser = new AccountUser()
+            var accountUser = new 
             {
                 PhoneNumber = id,
                 Name = user.Name,
                 PassWord=account.Password,
                 Address=user.Address??"",
+                Gender=user.Gender,
             };
 
             return accountUser;
@@ -89,6 +90,7 @@ namespace project1_backend.Controllers.TaiKhoan
                  account.Password = accountUser.PassWord;
                 user.Address = accountUser.Address;
                 user.Name = accountUser.Name;
+              
             }
             
 

@@ -19,8 +19,46 @@ namespace project1_backend.Controllers
         {
             _context = context;
         }
-
+        [HttpGet("SearchProduct")]
+        public async Task<ActionResult<IEnumerable<object>>> SearchProduct(string name)
+        {
+            if (_context.Sanbongs == null && _context.Products == null)
+            {
+                return NoContent();
+            }
+            var listP=await _context.Products.Where(l=>l.Productname.ToLower().Contains(name.ToLower())).ToListAsync(); 
+            
+            return listP;
+        }
         // GET: api/Products
+        [HttpGet("TopDoanhThu")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetTopDoanhThu()
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            var topProducts =  _context.SamphamDonhangs.
+                GroupBy(sd => sd.Productid).Select(g => new
+                {
+                    ProductId = g.Key,
+                    TotalQuantity = g.Sum(sd => sd.Quantity)
+                }).OrderByDescending(result => result.TotalQuantity)
+                .Take(3)
+                .Select(result=>result.ProductId)
+                .ToList();
+            var list = new List<Product>();
+            foreach(var product in topProducts)
+            {
+                var p = await _context.Products.FindAsync(product);
+                if (p != null)
+                {
+                  list.Add(p);
+                }
+            }
+            return list;
+
+        }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {

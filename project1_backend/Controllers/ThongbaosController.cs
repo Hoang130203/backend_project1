@@ -28,7 +28,7 @@ namespace project1_backend.Controllers
           {
               return NotFound();
           }
-            return await _context.Thongbaos.ToListAsync();
+            return await _context.Thongbaos.OrderByDescending(i=>i.Notifid).ToListAsync();
         }
 
         // GET: api/Thongbaos/5

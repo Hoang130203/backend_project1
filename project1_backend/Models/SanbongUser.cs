@@ -12,6 +12,7 @@ public partial class SanbongUser
     public int? Rate { get; set; }
 
     public string? Comment { get; set; }
+    public DateTime Time { get; set; }
     [JsonIgnore]
     public virtual Sanbong? Field { get; set; } = null!;
     [JsonIgnore]    
