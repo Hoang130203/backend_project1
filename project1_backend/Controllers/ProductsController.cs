@@ -26,7 +26,7 @@ namespace project1_backend.Controllers
             {
                 return NoContent();
             }
-            var listP=await _context.Products.Where(l=>l.Productname.ToLower().Contains(name.ToLower())).ToListAsync(); 
+            var listP=await _context.Products.Where(l=>l.Productname.ToLower().Contains(name.ToLower())).Take(5).ToListAsync(); 
             
             return listP;
         }

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Plugins;
 using project1_backend.Models;
 using project1_backend.Models.Custom;
+using project1_backend.Service;
 
 namespace project1_backend.Controllers.TaiKhoan
 {
@@ -159,11 +160,13 @@ namespace project1_backend.Controllers.TaiKhoan
                 var userr = await _context.Users.FirstOrDefaultAsync(u => u.Phonenumber == account);
                 if (user != null)
                 {
+                    string connectionId = PaymentHub.GetConnectionIdForUser(account);
                     return StatusCode(201, new
                     {
-                        name = userr?.Name.Split().Last().Trim(),
+                        name = userr?.Name.Trim().Split().Last(),
                         Success = true,
-                        Message = "User"
+                        Message = "User",
+                        ConnectionId = connectionId
                     });
                 }
             }

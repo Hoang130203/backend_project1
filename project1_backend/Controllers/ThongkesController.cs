@@ -16,6 +16,27 @@ namespace project1_backend.Controllers
         {
             _context = context;
         }
+        [HttpGet("XepHangNguoiDung")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> Xephang(){
+            var users= await _context.Users.ToListAsync();
+            if (users == null || users.Count == 0)
+            {
+                return NoContent();
+            }
+            var bxh= new List<dynamic>();
+            foreach (var user in users)
+            {
+                int totalMoney= await _context.Donhangs.Where(d=>d.Phonenumber==user.Phonenumber).SumAsync(p=>p.Totalcost);
+                bxh.Add(new
+                {
+                    Name = user.Name,
+                    Address = user.Address,
+                    Phone = user.Phonenumber,
+                    Spent = totalMoney
+                });
+            }
+            return bxh.OrderByDescending(b=>b.Spent).ToList();
+        }
         [HttpGet("Doanhso1W")]
         public async Task<ActionResult<IEnumerable<object>>>GetDoanhSo()
         {

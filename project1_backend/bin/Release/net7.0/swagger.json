@@ -1,0 +1,3368 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "project1_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Accounts": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Account"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Accounts/{id}": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Accounts"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AccountUsers": {
+      "get": {
+        "tags": [
+          "AccountUsers"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": { }
+            }
+          }
+        }
+      }
+    },
+    "/api/AccountUsers/{id}": {
+      "get": {
+        "tags": [
+          "AccountUsers"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AccountUsers"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AccountUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "AccountUsers"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AccountUsers/avt/{id}": {
+      "put": {
+        "tags": [
+          "AccountUsers"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "avt",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AccountUsers/login": {
+      "post": {
+        "tags": [
+          "AccountUsers"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "account",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "password",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AccountUsers/register": {
+      "post": {
+        "tags": [
+          "AccountUsers"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AccountUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AccountUser"
+            }
+          }
+        }
+      }
+    },
+    "/api/Admins": {
+      "get": {
+        "tags": [
+          "Admins"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Admin"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admins"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Admin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Admin"
+            }
+          }
+        }
+      }
+    },
+    "/api/Admins/{id}": {
+      "get": {
+        "tags": [
+          "Admins"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Admin"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Admins"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Admin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admins"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Banners": {
+      "get": {
+        "tags": [
+          "Banners"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Banner"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Banners"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Banner"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Banner"
+            }
+          }
+        }
+      }
+    },
+    "/api/Banners/{id}": {
+      "get": {
+        "tags": [
+          "Banners"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Banner"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Banners"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Banner"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Banners"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Donhangs/ThanhToanQr": {
+      "get": {
+        "tags": [
+          "Donhangs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "phone",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "time",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Donhangs/KiemtraThanhtoan": {
+      "get": {
+        "tags": [
+          "Donhangs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Donhangs": {
+      "get": {
+        "tags": [
+          "Donhangs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "by",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "time",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": { }
+            }
+          }
+        }
+      }
+    },
+    "/api/Donhangs/{id}": {
+      "get": {
+        "tags": [
+          "Donhangs"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Donhangs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Donhang"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Donhangs"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Donhangs/allOPofUser": {
+      "get": {
+        "tags": [
+          "Donhangs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Donhangs/allOFofUser": {
+      "get": {
+        "tags": [
+          "Donhangs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Donhangs/UpdateOrder": {
+      "put": {
+        "tags": [
+          "Donhangs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "orderid",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "Status",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Donhangs/HuyDon": {
+      "post": {
+        "tags": [
+          "Donhangs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "orderid",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Donhangs/OrderProducts": {
+      "post": {
+        "tags": [
+          "Donhangs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "phone",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "ship",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/InfoProduct"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Donhang"
+            }
+          }
+        }
+      }
+    },
+    "/api/Donhangs/OrderField": {
+      "post": {
+        "tags": [
+          "Donhangs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "phone",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/SanbongDonhang"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Donhang"
+            }
+          }
+        }
+      }
+    },
+    "/api/InfoProducts": {
+      "get": {
+        "tags": [
+          "InfoProducts"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "InfoProducts"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/InfoProduct"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/InfoProduct"
+            }
+          }
+        }
+      }
+    },
+    "/api/InfoProducts/Type": {
+      "get": {
+        "tags": [
+          "InfoProducts"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Type",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/InfoProduct"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/InfoProducts/{id}": {
+      "get": {
+        "tags": [
+          "InfoProducts"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/InfoProduct"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "InfoProducts"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/InfoProduct"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "InfoProducts"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Khohangs": {
+      "get": {
+        "tags": [
+          "Khohangs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Khohang"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Khohangs/{id}": {
+      "get": {
+        "tags": [
+          "Khohangs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Khohang"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Khohangs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Khohang"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Khohangs"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Products/SearchProduct": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": { }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/TopDoanhThu": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/AtoZ": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/ZtoA": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/Newer": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/Older": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/Cheaper": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/Expensive": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/top3": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/type/{type}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/{type}/AtoZ": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/{type}/ZtoA": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/{type}/Newer": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/{type}/Older": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/{type}/Cheaper": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/{type}/Expensive": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/{type}/top3": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ProductUsers": {
+      "get": {
+        "tags": [
+          "ProductUsers"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductUser"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ProductUsers"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ProductUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProductUser"
+            }
+          }
+        }
+      }
+    },
+    "/api/ProductUsers/FindComment": {
+      "get": {
+        "tags": [
+          "ProductUsers"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "productid",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "phone",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "time",
+            "type": "string",
+            "format": "date-time",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProductUser"
+            }
+          }
+        }
+      }
+    },
+    "/api/ProductUsers/GetAllCmtOfProduct": {
+      "get": {
+        "tags": [
+          "ProductUsers"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "productid",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": { }
+            }
+          }
+        }
+      }
+    },
+    "/api/ProductUsers/{id}": {
+      "put": {
+        "tags": [
+          "ProductUsers"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ProductUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProductUsers"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SamphamDonhangs": {
+      "get": {
+        "tags": [
+          "SamphamDonhangs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SamphamDonhang"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SamphamDonhangs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/SamphamDonhang"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SamphamDonhang"
+            }
+          }
+        }
+      }
+    },
+    "/api/SamphamDonhangs/{id}": {
+      "get": {
+        "tags": [
+          "SamphamDonhangs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SamphamDonhang"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SamphamDonhangs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/SamphamDonhang"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SamphamDonhangs"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SanbongDonhangs": {
+      "get": {
+        "tags": [
+          "SanbongDonhangs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SanbongDonhang"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SanbongDonhangs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/SanbongDonhang"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SanbongDonhang"
+            }
+          }
+        }
+      }
+    },
+    "/api/SanbongDonhangs/{id}": {
+      "get": {
+        "tags": [
+          "SanbongDonhangs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SanbongDonhang"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SanbongDonhangs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/SanbongDonhang"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SanbongDonhangs"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Sanbongs/all": {
+      "get": {
+        "tags": [
+          "Sanbongs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sanbong"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Sanbongs/{id}": {
+      "get": {
+        "tags": [
+          "Sanbongs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Sanbong"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Sanbongs"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Sanbongs/SearchBy": {
+      "get": {
+        "tags": [
+          "Sanbongs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "rate",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sanbong"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Sanbongs/update": {
+      "put": {
+        "tags": [
+          "Sanbongs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Sanbong"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Sanbongs": {
+      "post": {
+        "tags": [
+          "Sanbongs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Sanbong"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Sanbong"
+            }
+          }
+        }
+      }
+    },
+    "/api/SanbongUsers": {
+      "get": {
+        "tags": [
+          "SanbongUsers"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SanbongUser"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SanbongUsers"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/SanbongUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SanbongUser"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SanbongUsers"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "phone",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "type": "string",
+            "format": "date-time",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SanbongUsers/FindComment": {
+      "get": {
+        "tags": [
+          "SanbongUsers"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "fieldid",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "phone",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "time",
+            "type": "string",
+            "format": "date-time",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SanbongUsers/GetAllCmtOfField": {
+      "get": {
+        "tags": [
+          "SanbongUsers"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "fieldid",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": { }
+            }
+          }
+        }
+      }
+    },
+    "/api/SanbongUsers/{id}": {
+      "get": {
+        "tags": [
+          "SanbongUsers"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SanbongUser"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SanbongUsers"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/SanbongUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SanphamGiohangs": {
+      "get": {
+        "tags": [
+          "SanphamGiohangs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SanphamGiohang"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SanphamGiohangs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/SanphamGiohang"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SanphamGiohang"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SanphamGiohangs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "phone",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "productid",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "color",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SanphamGiohangs/ByID": {
+      "get": {
+        "tags": [
+          "SanphamGiohangs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "phone",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "productid",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SanphamGiohang"
+            }
+          }
+        }
+      }
+    },
+    "/api/SanphamGiohangs/ByPhone": {
+      "get": {
+        "tags": [
+          "SanphamGiohangs"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "phone",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": { }
+            }
+          }
+        }
+      }
+    },
+    "/api/SanphamGiohangs/updateCart": {
+      "put": {
+        "tags": [
+          "SanphamGiohangs"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/SanphamGiohang"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SanphamGiohangs/all": {
+      "delete": {
+        "tags": [
+          "SanphamGiohangs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "phone",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Thongbaos": {
+      "get": {
+        "tags": [
+          "Thongbaos"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Thongbao"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Thongbaos"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Thongbao"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Thongbao"
+            }
+          }
+        }
+      }
+    },
+    "/api/Thongbaos/{id}": {
+      "get": {
+        "tags": [
+          "Thongbaos"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Thongbao"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Thongbaos"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Thongkes/Doanhso1W": {
+      "get": {
+        "tags": [
+          "Thongkes"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": { }
+            }
+          }
+        }
+      }
+    },
+    "/api/Thongkes/Doanhso1Month": {
+      "get": {
+        "tags": [
+          "Thongkes"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": { }
+            }
+          }
+        }
+      }
+    },
+    "/api/Thongkes/DoanhSo1Y": {
+      "get": {
+        "tags": [
+          "Thongkes"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Year",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": { }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Users/avatar": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "phone",
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Account": {
+      "type": "object",
+      "properties": {
+        "phonenumber": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AccountUser": {
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "type": "string"
+        },
+        "passWord": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Admin": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Banner": {
+      "type": "object",
+      "properties": {
+        "bannerid": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "linkimg": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Donhang": {
+      "type": "object",
+      "properties": {
+        "orderid": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "phonenumber": {
+          "type": "string"
+        },
+        "totalcost": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        },
+        "time": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "InfoProduct": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "productName": {
+          "type": "string"
+        },
+        "price": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "quantity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "color": {
+          "type": "string"
+        },
+        "linkimg": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Khohang": {
+      "type": "object",
+      "properties": {
+        "productid": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "quantity": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "productid": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "productname": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "price": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "color": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "linkimg": {
+          "type": "string"
+        },
+        "rate": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProductUser": {
+      "type": "object",
+      "properties": {
+        "productid": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "userphonenumber": {
+          "type": "string"
+        },
+        "rate": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "time": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SamphamDonhang": {
+      "type": "object",
+      "properties": {
+        "orderid": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "productid": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "color": {
+          "type": "string"
+        },
+        "quantity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "cost": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Sanbong": {
+      "type": "object",
+      "properties": {
+        "fieldid": {
+          "type": "string"
+        },
+        "price": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "linkimg": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "rate": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        },
+        "decription": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SanbongDonhang": {
+      "type": "object",
+      "properties": {
+        "orderid": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "fieldid": {
+          "type": "string"
+        },
+        "kip": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "times": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "cost": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SanbongUser": {
+      "type": "object",
+      "properties": {
+        "fieldid": {
+          "type": "string"
+        },
+        "userphonenumber": {
+          "type": "string"
+        },
+        "rate": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "time": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SanphamGiohang": {
+      "type": "object",
+      "properties": {
+        "userphonenumber": {
+          "type": "string"
+        },
+        "productid": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "price": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "quantity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "color": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Thongbao": {
+      "type": "object",
+      "properties": {
+        "notifid": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "orderid": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "time": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "phonenumber": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "birthdate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "gender": {
+          "type": "boolean"
+        },
+        "address": {
+          "type": "string"
+        },
+        "avt": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

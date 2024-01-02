@@ -12,7 +12,7 @@ using Microsoft.VisualBasic;
 using project1_backend.Models;
 using project1_backend.Models.Custom;
 using project1_backend.Service;
-
+using Microsoft.AspNetCore.SignalR;
 namespace project1_backend.Controllers
 {
     [Route("api/[controller]")]
@@ -26,6 +26,68 @@ namespace project1_backend.Controllers
             _context = context;
         }
 
+        [HttpGet("ThanhToanQr")]
+        public async Task<IActionResult> ThanhToanQR(String phone,int id, string time)
+        {
+            if (_context.Donhangs == null)
+            {
+                return NotFound();
+            }
+            var donhang= await _context.Donhangs.FirstOrDefaultAsync(c=>c.Orderid==id);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Phonenumber == phone);
+            if (!DateTime.TryParse(time, out DateTime qrTime))
+            {
+                return BadRequest("Invalid time format");
+            }
+
+            TimeSpan timeDifference = DateTime.Now - qrTime;
+
+            if (timeDifference.Duration() > TimeSpan.FromMinutes(1))
+            {
+                return Ok(new { message = "Mã QR đã hết hạn!" });
+            }
+
+            if (donhang != null)
+            {
+               // var field=await _context.Sanbongs.FirstOrDefaultAsync(s=>s.Fieldid==don)
+                donhang.Status = "Đặt thành công, đã thanh toán";
+                await _context.SaveChangesAsync();
+                var thongbao = new Thongbao();
+                thongbao.Orderid = id;
+                thongbao.Message = user.Name + " vừa thanh toán tiền sân" ;
+                thongbao.Time = DateTime.Now;
+                thongbao.Type = "1";
+
+                if (_context.Thongbaos != null)
+                {
+                    _context.Thongbaos.Add(thongbao);
+
+                    await _context.SaveChangesAsync();
+
+                }
+            }
+            return Ok(new { message = "Bạn đã thanh toán thành công", success = true });
+        }
+        [HttpGet("KiemtraThanhtoan")]
+        public async Task<IActionResult> KiemTraThanhToan(int id)
+        {
+            if (_context.Donhangs == null)
+            {
+                return NotFound();
+            }
+            var donhang = await _context.Donhangs.FirstOrDefaultAsync(c => c.Orderid == id);
+           
+            if (donhang != null && donhang.Status!=null)
+            {
+                if(donhang.Status.Contains("đã thanh toán"))
+                {
+                    return Ok(new { message = "Bạn đã thanh toán thành công", success = true });
+
+                }
+                // var field=await _context.Sanbongs.FirstOrDefaultAsync(s=>s.Fieldid==don)
+            }
+            return Ok(new { message = "Bạn chưa thanh toán thành công", success = false });
+        }
         // GET: api/Donhangs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<object>>> GetDonhangs(String by,String time)
@@ -316,6 +378,14 @@ namespace project1_backend.Controllers
             {
                 return Ok(new { message="Đặt hàng thất bại!",success = false });
             }
+            foreach (var product in list)
+            {
+                var khohang= await _context.Khohangs.FindAsync(product.ProductId);
+                if (khohang?.Quantity < product.Quantity)
+                {
+                    return Ok(new {message="Sản phẩm "+product.ProductName+" chỉ còn "+khohang.Quantity+" sản phẩm trong kho hàng",success=false});
+                }
+            }
             var donhang=new Donhang();
             donhang.Orderid = 0;
             donhang.Phonenumber=user.Phonenumber;
@@ -337,6 +407,8 @@ namespace project1_backend.Controllers
                 };
                 _context.SamphamDonhangs.Add(orderProduct);
                 total += product.Quantity * product.Price;
+                var khohang = await _context.Khohangs.FindAsync(product.ProductId);
+                khohang.Quantity -= product.Quantity; 
             }
             await _context.SaveChangesAsync();
             donhang.Totalcost=total+ship;
