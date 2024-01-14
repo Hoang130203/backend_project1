@@ -44,13 +44,13 @@ public partial class ProjectBongDaContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
     
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-
-        => optionsBuilder.UseSqlServer("server=hoang;Data Source=.; database=ProjectBongDa1; Integrated security=true;TrustServerCertificate=True");
-    
   //  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+  //
+ //       => optionsBuilder.UseSqlServer("server=hoang;Data Source=.; database=ProjectBongDa1; Integrated security=true;TrustServerCertificate=True");
 
-  //     => optionsBuilder.UseSqlServer("Server=tcp:mmh.database.windows.net,1433;Initial Catalog=dbproject1;Persist Security Info=False;User ID=k58a01mmh;Password=Hoang2k3@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+         => optionsBuilder.UseSqlServer("Server=qlbongda.mssql.somee.com;Initial Catalog=qlbongda;Persist Security Info=False;User ID=k58a01mmh_SQLLogin_1;Password=r5rhbv2ajc;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
